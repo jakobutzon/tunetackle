@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuneTackle — Try it</title>
+<meta name="description" content="Play TuneTackle's real signal chain on a male or female vocal clip, right in your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='38' y='6' width='26' height='46' rx='13' fill='%23c6f542'/%3E%3Cpath d='M30 34v14a21 21 0 0 0 42 0V34' fill='none' stroke='%23c6f542' stroke-width='7'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="plugin" id="plugin">
+    <div class="header">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 60 34" width="46" height="26">
+          <rect x="0"  y="12" width="3" height="10" rx="1.5" fill="#c6f542"/>
+          <rect x="7"  y="6"  width="3" height="22" rx="1.5" fill="#c6f542"/>
+          <rect x="50" y="6"  width="3" height="22" rx="1.5" fill="#c6f542"/>
+          <rect x="57" y="12" width="3" height="10" rx="1.5" fill="#c6f542"/>
+          <rect x="23" y="0"  width="14" height="21" rx="7"  fill="#c6f542"/>
+          <path d="M14 15v4a16 16 0 0 0 32 0v-4" fill="none" stroke="#c6f542" stroke-width="3.2" stroke-linecap="round"/>
+          <rect x="28.5" y="27" width="3" height="5" rx="1" fill="#c6f542"/>
+          <rect x="23" y="32" width="14" height="2.2" rx="1.1" fill="#c6f542"/>
+        </svg>
+        <span class="wordmark">TUNETACKLE</span>
+      </div>
+
+      <select class="preset-select" id="presetSelect" aria-label="Preset"></select>
+
+      <div class="ab-toggle" role="group" aria-label="Before / After">
+        <button type="button" data-bypass="true"  id="btnBefore">Before</button>
+        <button type="button" data-bypass="false" id="btnAfter" class="active">After</button>
+      </div>
+    </div>
+
+    <div class="wave-panel">
+      <div class="wave-row-top">
+        <span class="wave-title">VOCAL INPUT — <span id="stemLabel">NONE SELECTED</span></span>
+        <span class="status" id="statusText"><i class="dot"></i><span id="statusLabel">PROCESSING</span></span>
+      </div>
+      <canvas id="waveCanvas" class="wave-canvas"></canvas>
+      <div class="wave-row-bottom">
+        <span id="timeText">00:00.0</span>
+        <span id="keyText">KEY: —</span>
+        <span id="dbText">-∞ dB</span>
+      </div>
+    </div>
+
+    <div class="knob-row" id="knobRow">
+      <div class="knob-card" data-param="tune">
+        <div class="knob-title">Tune</div>
+        <canvas class="knob-canvas" data-param="tune" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="tune">27%</div>
+      </div>
+      <div class="knob-card" data-param="clean">
+        <div class="knob-title">Clean</div>
+        <canvas class="knob-canvas" data-param="clean" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="clean">55%</div>
+      </div>
+      <div class="knob-card" data-param="eq">
+        <div class="knob-title">EQ</div>
+        <canvas class="knob-canvas" data-param="eq" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="eq">0%</div>
+      </div>
+      <div class="knob-card" data-param="compress">
+        <div class="knob-title">Compress</div>
+        <canvas class="knob-canvas" data-param="compress" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="compress">7%</div>
+      </div>
+      <div class="knob-card" data-param="air">
+        <div class="knob-title">Air</div>
+        <canvas class="knob-canvas" data-param="air" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="air">0%</div>
+      </div>
+      <div class="knob-card" data-param="space">
+        <div class="knob-title">Space</div>
+        <canvas class="knob-canvas" data-param="space" width="200" height="200"></canvas>
+        <div class="knob-value" data-value-for="space">38%</div>
+      </div>
+    </div>
+
+    <div class="polish-bar">
+      <span class="polish-label">Polish</span>
+      <input type="range" id="polishSlider" min="0" max="100" value="72" step="1" class="polish-range" aria-label="Polish">
+      <span class="polish-value" id="polishValue">72%</span>
+      <canvas id="polishMeter" class="polish-meter" width="90" height="34"></canvas>
+    </div>
+  </div>
+
+  <div class="try-it">
+    <div class="try-it-heading">Try it on a vocal</div>
+    <div class="stem-row">
+      <button class="stem-card" data-stem="male" id="maleStem" aria-pressed="false">
+        <svg class="stem-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <span class="stem-name">Male vocals</span>
+      </button>
+      <button class="stem-card" data-stem="female" id="femaleStem" aria-pressed="false">
+        <svg class="stem-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <span class="stem-name">Female vocals</span>
+      </button>
+    </div>
+    <audio id="maleAudio" src="assets/male-vocals.mp3" preload="auto" loop></audio>
+    <audio id="femaleAudio" src="assets/female-vocals.mp3" preload="auto" loop></audio>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
