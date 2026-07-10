@@ -25,10 +25,8 @@ const stemLabel = $("#stemLabel");
 const timeText = $("#timeText");
 const keyText = $("#keyText");
 const dbText = $("#dbText");
-const maleAudio = $("#maleAudio");
-const femaleAudio = $("#femaleAudio");
-const maleStemBtn = $("#maleStem");
-const femaleStemBtn = $("#femaleStem");
+const vocalAudio = $("#vocalAudio");
+const vocalStemBtn = $("#vocalStem");
 
 const defaults = PRESETS[DEFAULT_PRESET_INDEX];
 const knobs = { tune: defaults.tune, clean: defaults.clean, eq: defaults.eq, compress: defaults.compress, air: defaults.air, space: defaults.space };
@@ -149,11 +147,11 @@ function keyDisplayString() {
   return `KEY: ${NOTE_NAMES[keyIndex % 12]} ${keyIndex < 12 ? "MAJOR" : "MINOR"}`;
 }
 
-// --- stem players ---
+// --- stem player ---
 let activeStemKey = null;
 const stemPlayers = createStemPlayers({
-  audioEls: { male: maleAudio, female: femaleAudio },
-  buttons: { male: maleStemBtn, female: femaleStemBtn },
+  audioEls: { vocal: vocalAudio },
+  buttons: { vocal: vocalStemBtn },
   graph,
   onAudioReady() {
     visualizer.setAnalyser(graph.getAnalyser());
@@ -163,7 +161,7 @@ const stemPlayers = createStemPlayers({
   },
   onActiveChange(key) {
     activeStemKey = key;
-    stemLabel.textContent = key ? `${key.toUpperCase()} VOCALS` : "NONE SELECTED";
+    stemLabel.textContent = key ? "LIVE" : "NONE SELECTED";
   },
 });
 
@@ -179,8 +177,7 @@ function loop(now) {
   const updated = visualizer.tick(now);
   if (!updated) return;
 
-  const el = activeStemKey ? (activeStemKey === "male" ? maleAudio : femaleAudio) : null;
-  timeText.textContent = formatTime(el ? el.currentTime : 0);
+  timeText.textContent = formatTime(activeStemKey ? vocalAudio.currentTime : 0);
   keyText.textContent = keyDisplayString();
 
   const level = visualizer.getSmoothLevel();

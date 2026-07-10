@@ -1,5 +1,6 @@
-// Male/female <audio> playback: one MediaElementAudioSourceNode per element (created once,
-// lazily, on first use), both feeding the shared graph head. Mutually exclusive playback.
+// <audio> playback: one MediaElementAudioSourceNode per element (created once, lazily, on
+// first use), feeding the shared graph head. Generic over any number of keyed stems;
+// starting one pauses any other that's playing.
 export function createStemPlayers({ audioEls, buttons, graph, onAudioReady, onActiveChange }) {
   const sourceNodes = {};
   let active = null;

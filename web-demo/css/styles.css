@@ -124,14 +124,13 @@ body{
 
 /* ---------- try it ---------- */
 .try-it{margin-top:32px;text-align:center}
-.try-it-heading{font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);margin-bottom:18px}
 .stem-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .stem-card{
   all:unset;display:flex;align-items:center;gap:10px;cursor:pointer;
   background:var(--card);border:1.2px solid var(--card-stroke);border-radius:14px;
-  padding:16px 28px;color:var(--text);font-size:16px;font-weight:600;
+  padding:16px 32px;color:var(--text);font-size:16px;font-weight:600;
   transition:border-color .2s, color .2s, background .2s;
-  min-width:180px;justify-content:center;
+  min-width:200px;justify-content:center;
 }
 .stem-card:hover{border-color:rgba(198,245,66,.5)}
 .stem-card.playing{background:var(--lime);color:#0a0a0d;border-color:var(--lime)}

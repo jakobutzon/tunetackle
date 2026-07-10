@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TuneTackle — Try it</title>
-<meta name="description" content="Play TuneTackle's real signal chain on a male or female vocal clip, right in your browser.">
+<meta name="description" content="Play TuneTackle's real signal chain on a vocal clip, right in your browser.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='38' y='6' width='26' height='46' rx='13' fill='%23c6f542'/%3E%3Cpath d='M30 34v14a21 21 0 0 0 42 0V34' fill='none' stroke='%23c6f542' stroke-width='7'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -95,19 +95,13 @@
   </div>
 
   <div class="try-it">
-    <div class="try-it-heading">Try it on a vocal</div>
     <div class="stem-row">
-      <button class="stem-card" data-stem="male" id="maleStem" aria-pressed="false">
+      <button class="stem-card" data-stem="vocal" id="vocalStem" aria-pressed="false">
         <svg class="stem-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-        <span class="stem-name">Male vocals</span>
-      </button>
-      <button class="stem-card" data-stem="female" id="femaleStem" aria-pressed="false">
-        <svg class="stem-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-        <span class="stem-name">Female vocals</span>
+        <span class="stem-name">Try on a vocal</span>
       </button>
     </div>
-    <audio id="maleAudio" src="assets/male-vocals.mp3" preload="auto" loop></audio>
-    <audio id="femaleAudio" src="assets/female-vocals.mp3" preload="auto" loop></audio>
+    <audio id="vocalAudio" src="assets/this-vocal.wav" preload="auto" loop></audio>
   </div>
 </div>
 
