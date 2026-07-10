@@ -11,7 +11,7 @@
 <body>
 
 <div class="stage">
-  <div class="plugin" id="plugin">
+  <div class="plugin bypassed" id="plugin">
     <div class="header">
       <div class="logo" aria-hidden="true">
         <svg class="logo-mark" viewBox="0 0 68 44" width="44" height="28" fill="#c6f542">
@@ -34,8 +34,8 @@
 
       <div class="header-right">
         <div class="ab-toggle" role="group" aria-label="Before / After">
-          <button type="button" data-bypass="true"  id="btnBefore">Before</button>
-          <button type="button" data-bypass="false" id="btnAfter" class="active">After</button>
+          <button type="button" data-bypass="true"  id="btnBefore" class="active">Before</button>
+          <button type="button" data-bypass="false" id="btnAfter">After</button>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="wave-panel">
       <div class="wave-row-top">
         <span class="wave-title">VOCAL INPUT — <span id="stemLabel">NONE SELECTED</span></span>
-        <span class="status" id="statusText"><i class="dot"></i><span id="statusLabel">PROCESSING</span></span>
+        <span class="status" id="statusText"><i class="dot"></i><span id="statusLabel">BYPASSED</span></span>
       </div>
       <canvas id="waveCanvas" class="wave-canvas"></canvas>
       <div class="wave-row-bottom">
@@ -57,39 +57,39 @@
       <div class="knob-card" data-param="tune">
         <div class="knob-title">Tune</div>
         <canvas class="knob-canvas" data-param="tune" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="tune">27%</div>
+        <div class="knob-value" data-value-for="tune">0%</div>
       </div>
       <div class="knob-card" data-param="clean">
         <div class="knob-title">Clean</div>
         <canvas class="knob-canvas" data-param="clean" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="clean">55%</div>
+        <div class="knob-value" data-value-for="clean">80%</div>
       </div>
       <div class="knob-card" data-param="eq">
         <div class="knob-title">EQ</div>
         <canvas class="knob-canvas" data-param="eq" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="eq">0%</div>
+        <div class="knob-value" data-value-for="eq">80%</div>
       </div>
       <div class="knob-card" data-param="compress">
         <div class="knob-title">Compress</div>
         <canvas class="knob-canvas" data-param="compress" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="compress">7%</div>
+        <div class="knob-value" data-value-for="compress">80%</div>
       </div>
       <div class="knob-card" data-param="air">
         <div class="knob-title">Air</div>
         <canvas class="knob-canvas" data-param="air" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="air">0%</div>
+        <div class="knob-value" data-value-for="air">80%</div>
       </div>
       <div class="knob-card" data-param="space">
         <div class="knob-title">Space</div>
         <canvas class="knob-canvas" data-param="space" width="200" height="200"></canvas>
-        <div class="knob-value" data-value-for="space">38%</div>
+        <div class="knob-value" data-value-for="space">50%</div>
       </div>
     </div>
 
     <div class="polish-bar">
       <span class="polish-label">Polish</span>
-      <input type="range" id="polishSlider" min="0" max="100" value="72" step="1" class="polish-range" aria-label="Polish">
-      <span class="polish-value" id="polishValue">72%</span>
+      <input type="range" id="polishSlider" min="0" max="100" value="100" step="1" class="polish-range" aria-label="Polish">
+      <span class="polish-value" id="polishValue">100%</span>
       <canvas id="polishMeter" class="polish-meter" width="90" height="34"></canvas>
     </div>
   </div>

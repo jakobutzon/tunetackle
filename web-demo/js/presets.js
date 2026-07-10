@@ -1,6 +1,6 @@
 // Verbatim port of Source/PluginProcessor.cpp getPresets() + the Polish eff() scaling formula.
 export const PRESETS = [
-  { name: "Radio Ready",    tune: 27, clean: 55, eq:  0, compress:  7, air:  0, space: 38, polish: 72 },
+  { name: "Radio Ready",    tune:  0, clean: 80, eq: 80, compress: 80, air: 80, space: 50, polish: 100 },
   { name: "Natural",        tune: 12, clean: 40, eq: 15, compress: 20, air: 10, space: 18, polish: 55 },
   { name: "Pop Sheen",      tune: 45, clean: 60, eq: 40, compress: 55, air: 65, space: 45, polish: 80 },
   { name: "Trap Hard Tune", tune: 95, clean: 65, eq: 45, compress: 60, air: 50, space: 30, polish: 85 },

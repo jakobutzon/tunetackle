@@ -3,6 +3,7 @@ import { createKnob } from "./knob.js";
 import { createVisualizer } from "./visualizer.js";
 import { createAudioGraph } from "./audioGraph.js";
 import { createStemPlayers } from "./stemPlayers.js";
+import { createOnboarding } from "./onboarding.js";
 
 // Krumhansl-Schmuckler key profiles, ported verbatim from
 // Source/PluginProcessor.cpp::updateKeyEstimate().
@@ -27,11 +28,12 @@ const keyText = $("#keyText");
 const dbText = $("#dbText");
 const vocalAudio = $("#vocalAudio");
 const vocalStemBtn = $("#vocalStem");
+const knobRow = $("#knobRow");
 
 const defaults = PRESETS[DEFAULT_PRESET_INDEX];
 const knobs = { tune: defaults.tune, clean: defaults.clean, eq: defaults.eq, compress: defaults.compress, air: defaults.air, space: defaults.space };
 let polish = defaults.polish;
-let bypassed = false;
+let bypassed = true;
 let pcWeights = new Array(12).fill(0);
 let keyIndex = -1;
 
@@ -39,6 +41,13 @@ const graph = createAudioGraph();
 // Created up front (with no analyser yet) so the waveform + polish meter render a resting
 // state immediately, matching the plugin UI; the live analyser is attached on first play.
 const visualizer = createVisualizer({ waveCanvas, polishMeterCanvas });
+
+// First-run guided tour: play vocal -> press After -> try the controls. No-op for
+// returning visitors (see onboarding.js).
+const onboarding = createOnboarding({
+  stage: $(".stage"),
+  targets: { vocal: vocalStemBtn, after: btnAfter, knobs: knobRow },
+});
 
 // --- preset dropdown ---
 PRESETS.forEach((p, i) => {
@@ -58,6 +67,7 @@ presetSelect.addEventListener("change", () => {
   polish = preset.polish;
   applyPolishUI(polish);
   graph.setParams(knobs, polish);
+  onboarding.notify("knob-touched");
 });
 
 // --- knobs ---
@@ -76,8 +86,10 @@ KNOB_IDS.forEach((id) => {
       knobs[id] = v;
       updateKnobText(id, v);
       graph.setParams(knobs, polish);
+      onboarding.notify("knob-touched");
     },
   });
+  updateKnobText(id, knobs[id]);
 });
 
 // --- polish slider ---
@@ -89,6 +101,7 @@ function applyPolishUI(v) {
 applyPolishUI(polish);
 polishSlider.addEventListener("input", () => {
   polish = +polishSlider.value;
+  onboarding.notify("knob-touched");
   applyPolishUI(polish);
   graph.setParams(knobs, polish);
 });
@@ -103,6 +116,7 @@ function setBypassed(b) {
   KNOB_IDS.forEach((id) => knobWidgets[id].setProcessing(!b));
   if (visualizer) visualizer.setProcessing(!b);
   graph.setBypassed(b);
+  if (!b) onboarding.notify("after-pressed");
 }
 btnBefore.addEventListener("click", () => setBypassed(true));
 btnAfter.addEventListener("click", () => setBypassed(false));
@@ -162,6 +176,7 @@ const stemPlayers = createStemPlayers({
   onActiveChange(key) {
     activeStemKey = key;
     stemLabel.textContent = key ? "LIVE" : "NONE SELECTED";
+    if (key) onboarding.notify("vocal-played");
   },
 });
 
