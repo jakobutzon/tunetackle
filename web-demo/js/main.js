@@ -38,7 +38,9 @@ let pcWeights = new Array(12).fill(0);
 let keyIndex = -1;
 
 const graph = createAudioGraph();
-let visualizer = null;
+// Created up front (with no analyser yet) so the waveform + polish meter render a resting
+// state immediately, matching the plugin UI; the live analyser is attached on first play.
+const visualizer = createVisualizer({ waveCanvas, polishMeterCanvas });
 
 // --- preset dropdown ---
 PRESETS.forEach((p, i) => {
@@ -154,12 +156,10 @@ const stemPlayers = createStemPlayers({
   buttons: { male: maleStemBtn, female: femaleStemBtn },
   graph,
   onAudioReady() {
-    visualizer = createVisualizer({ waveCanvas, polishMeterCanvas, analyser: graph.getAnalyser() });
-    visualizer.setProcessing(!bypassed);
+    visualizer.setAnalyser(graph.getAnalyser());
     graph.setParams(knobs, polish);
     graph.setBypassed(bypassed);
     graph.onPitchMessage(handlePitchMessage);
-    requestAnimationFrame(loop);
   },
   onActiveChange(key) {
     activeStemKey = key;
@@ -176,7 +176,6 @@ function formatTime(t) {
 }
 function loop(now) {
   requestAnimationFrame(loop);
-  if (!visualizer) return;
   const updated = visualizer.tick(now);
   if (!updated) return;
 
@@ -188,3 +187,6 @@ function loop(now) {
   const db = 20 * Math.log10(Math.max(level, 1e-3));
   dbText.textContent = db <= -59.9 ? "-∞ dB" : `${db.toFixed(1)} dB`;
 }
+
+visualizer.setProcessing(!bypassed);
+requestAnimationFrame(loop);

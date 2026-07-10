@@ -37,20 +37,28 @@ body{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   height:86px;border-bottom:1px solid #1e1e26;margin:0 -26px;padding:0 26px;
 }
-.logo{display:flex;align-items:center;gap:12px;flex:none}
+.logo{display:flex;align-items:center;gap:12px;flex:1 1 0}
 .logo .wordmark{
   font-weight:700;font-style:italic;font-size:20px;letter-spacing:.02em;
   text-transform:uppercase;color:var(--text);white-space:nowrap;
 }
+.preset-wrap{
+  display:flex;align-items:center;gap:8px;flex:none;
+  background:#15151b;border:1.2px solid var(--card-stroke);border-radius:12px;
+  height:44px;padding:0 16px 0 18px;
+}
+.preset-label{color:var(--sub);font-size:15px;font-weight:600;flex:none;white-space:nowrap}
 .preset-select{
   appearance:none;-webkit-appearance:none;
-  background:#15151b url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 10 6%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%238f8f99%22/%3E%3C/svg%3E') no-repeat right 16px center;
+  background:transparent url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 10 6%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%23c6f542%22/%3E%3C/svg%3E') no-repeat right 2px center;
   background-size:10px 6px;
-  color:var(--text);border:1.2px solid var(--card-stroke);border-radius:10px;
-  height:40px;padding:0 34px 0 16px;font-size:15px;font-weight:600;
-  font-family:inherit;cursor:pointer;flex:1;max-width:260px;
+  color:var(--text);border:none;
+  height:100%;padding:0 22px 0 0;font-size:16px;font-weight:700;
+  font-family:inherit;cursor:pointer;text-align:left;
 }
-.preset-select:focus{outline:1.5px solid var(--lime)}
+.preset-select:focus{outline:none}
+.preset-wrap:focus-within{border-color:var(--lime)}
+.header-right{flex:1 1 0;display:flex;justify-content:flex-end}
 .ab-toggle{
   display:flex;background:#15151b;border:1.2px solid var(--card-stroke);
   border-radius:10px;overflow:hidden;flex:none;height:40px;
@@ -85,7 +93,7 @@ body{
 .plugin:not(.bypassed) .knob-card{border-color:rgba(198,245,66,.35);box-shadow:0 0 16px -6px rgba(198,245,66,.35)}
 .knob-title{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
 .knob-canvas{width:84px;height:84px;cursor:ns-resize;touch-action:none}
-.knob-value{font-size:16px;font-weight:700;margin-top:8px}
+.knob-value{font-size:16px;font-weight:700;margin-top:8px;color:var(--lime)}
 .plugin.bypassed .knob-value{color:var(--sub)}
 
 /* ---------- polish bar ---------- */
@@ -112,7 +120,7 @@ body{
 .plugin.bypassed .polish-range{opacity:.45}
 .polish-value{font-size:17px;font-weight:700;color:var(--lime);flex:none;min-width:48px}
 .plugin.bypassed .polish-value{color:var(--sub)}
-.polish-meter{flex:none}
+.polish-meter{flex:none;width:104px;height:38px}
 
 /* ---------- try it ---------- */
 .try-it{margin-top:32px;text-align:center}

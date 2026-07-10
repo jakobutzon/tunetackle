@@ -4,8 +4,8 @@
     {
       "name": "web-demo",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8811", "--directory", "web-demo"],
-      "port": 8811
+      "runtimeArgs": ["-m", "http.server", "8814", "--directory", "web-demo"],
+      "port": 8814
     }
   ]
 }
